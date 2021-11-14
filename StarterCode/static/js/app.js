@@ -8,16 +8,18 @@ function init() {
     let y = filtered.map(otus => otus.otu_ids);
     console.log("Mapped otu ids for ID #940: ", y[0].slice(0, 10));
     
-    // Create dropdown list
+    // Get data for dropdown list
     let dropdown = data.names;
     var demographic = data.metadata[0];
     console.log(d3.keys(demographic));
     
     // Get data for bar graph
     let x_bar = sample[0].sample_values.slice(0, 10);
+    console.log(x_bar);
     let y_bar = y[0].slice(0,10).map(String);
     y_bar = y_bar.map(el => "OTU " + el)
-        
+    console.log(y_bar);
+    
     // Create horizontal bar graph
     var trace1 = {
       x: x_bar.reverse(),
@@ -62,6 +64,11 @@ function init() {
     var layout = { width: 600, height: 500, margin: {t: 0, b: 0}};
     Plotly.newPlot('gauge', gdata, layout);
     
+    // Get data for dropdown list
+    let dropdown = data.names;
+    var demographic = data.metadata[0];
+    console.log(d3.keys(demographic));
+
     // Create dropdown list
     const menu = d3.select("#selDataset");
     dropdown.forEach(item => {
