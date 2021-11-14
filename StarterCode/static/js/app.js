@@ -25,8 +25,9 @@ function init() {
       var trace1 = {
           x: x_bar.reverse(),
           y: y_bar.reverse(),
-          type: 'bar',
-          orientation: 'h'
+          type: "bar",
+          color: "darkblue",
+          orientation: "h"
       };
       
       var plotdata = [trace1];
