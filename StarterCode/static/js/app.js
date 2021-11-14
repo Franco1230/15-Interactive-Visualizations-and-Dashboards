@@ -34,9 +34,9 @@ function init() {
       y: y_bar.reverse(),
       type: "bar",
       marker: {
-        color: "rgb(40, 0, 50)",
+        color: "rgb(50, 0, 80)",
         line: {
-          color: "rgb(40, 0, 80)",
+          color: "rgb(40, 0, 50)",
           width: 1
         }
       },
@@ -68,7 +68,7 @@ function init() {
       type: "indicator",
       gauge: {bar: {color: "purple"}},
       mode: "gauge+number"}];
-      var layout = {width: 400, height: 400, margin: {t: 0, b: 0}};
+      var layout = {width: 450, height: 450, margin: {t: 0, b: 0}};
       Plotly.newPlot("gauge", gaugeData, layout);
       
       // Create dropdown list
