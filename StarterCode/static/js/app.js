@@ -61,15 +61,15 @@ function init() {
     Plotly.newPlot("bubble", bubbleData);
     
     // Create gauge plot
-    var gdata = [{
+    var gaugeData = [{
       domain: {x: [0, 1], y: [0, 1]},
       value: demographic.wfreq,
       title: {text: "Belly Button Washing Frequency"},
       type: "indicator",
       gauge: {bar: {color: "purple"}},
       mode: "gauge+number"}];
-      var layout = {width: 600, height: 500, margin: {t: 0, b: 0}};
-      Plotly.newPlot("gauge", gdata, layout);
+      var layout = {width: 400, height: 400, margin: {t: 0, b: 0}};
+      Plotly.newPlot("gauge", gaugeData, layout);
       
       // Create dropdown list
       const menu = d3.select("#selDataset");
