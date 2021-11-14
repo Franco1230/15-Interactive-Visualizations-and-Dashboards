@@ -41,7 +41,7 @@ function init() {
             marker: {
                 size: sample[0].sample_values,
                 color: sample[0].sample_values,
-                colorscale: [[0, 'rgb(0, 0, 0)'], [1, 'rgb(0, 0, 255)']]
+                colorscale: [[0, 'rgb(0, 0, 0)'], [1, 'rgb(0, 0, 0)']]
             },
             text: sample[0].otu_labels
         };
