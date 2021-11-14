@@ -1,6 +1,6 @@
 //default
 function init() {
-  d3.json("./static/js/samples.json").then((data) => {
+  d3.json("../static/js/samples.json").then((data) => {
       console.log(data);
       var sampleDataset = data.samples;
       var namesDataset = data.names;
