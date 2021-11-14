@@ -58,7 +58,7 @@ function init() {
               title: { text: "Belly Button Washing Frequency" },
               type: "indicator",
               gauge: {
-                  bar: { color: "darkblue" }
+                  bar: { color: "darkgrey" }
               },
               mode: "gauge+number"
           }
