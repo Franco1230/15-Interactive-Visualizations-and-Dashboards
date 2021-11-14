@@ -33,7 +33,7 @@ function updatePage() {
   
     // function to return the index of belly button subject
     function selectedIndex(x) {
-      return x==selectedID;
+      return x == selectedID;
     }
   
     // variables for bar graph 
@@ -74,7 +74,8 @@ function updatePage() {
           };
     // Gauge Graph
     var trace3 = {
-      domain: {x: [0, 1], y: [0, 1] },
+      domain: {x: [0, 1], y: [0, 1]},
+      value: demodata.wfreq,
       title: {text: "Belly Button Washing Frequency"},
       type: "indicator",
       mode: "gauge+number"
