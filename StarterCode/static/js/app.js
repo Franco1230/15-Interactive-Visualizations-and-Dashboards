@@ -1,159 +1,135 @@
-//default
-function init() {
-  d3.json("../static/js/samples.json").then((data) => {
-      console.log(data);
-      var sampleDataset = data.samples;
-      var namesDataset = data.names;
+function DrawBargraph(sampleID) {
+  d3.json("samples.json").then((data) => {
 
-      //Add all IDs to the dropdown menu
-      var dropdownMenu = d3.select("#selDataset");
-      var option;
-      for (var i = 0; i < namesDataset.length; i++) {
-          option = dropdownMenu.append("option").text(namesDataset[i]);
-      };
+      // create variables to hold bar chart data 
+      var samples = data.samples;
+      var resultArray = samples.filter(s => s.id == sampleID);
+      var result = resultArray[0];
 
-      // Display default charts
-      showBars(namesDataset[0]);
-      showMeta(namesDataset[0]);
-      showBubble(namesDataset[0]);
-      showGauge(namesDataset[0])
-  })
-};
+      var otu_ids = result.otu_ids;
+      var otu_labels = result.otu_labels;
+      var sample_values = result.sample_values;
 
-function optionChanged() {
-  var name = d3.select("#selDataset").node().value;
-  console.log(name);
-  showBars(name);
-  showMeta(name);
-  showBubble(name);
-  showGauge(name);
-};
-
-
-//Update demographic info
-function showMeta(name) {
-  d3.json("./static/js/samples.json").then((data) => {
-
-      var metaset = d3.select("#sample-metadata");
-
-      var panelb = metaset.selectAll("p");
-
-      panelb.remove();
-
-      var intname = parseInt(name);
-      var sample = data.metadata.filter(obj => obj.id === intname)[0];
-      console.log(sample);
+      var yticks = otu_ids.slice(0,10).map(otuID=> `OTU ${otuID}`).reverse();
       
-      Object.entries(sample).forEach(function([key, value]) {
-        var cell = metaset.append("p");
-        cell.text(`${key}: ${value}`)})
-      })
-}; 
+      // assemble data for bar chart
+      var barData = {
+          x: sample_values.slice(0,10).reverse(),
+          y: yticks,
+          type: "bar",
+          text: otu_labels.slice(0,10).reverse(),
+          orientation: "h"
 
-
-function showBars(name) {
-  d3.json("./static/js/samples.json").then(data => {
-      var sample = data.samples.filter(obj => obj.id == name)[0];
-
-      var barData = [
-          {
-              y: sample.otu_ids.slice(0, 10).reverse().map(obj => `OTU ${obj}`),
-              x: sample.sample_values.slice(0, 10).reverse(),
-              text: sample.otu_labels.slice(0, 10).reverse(),
-              orientation: 'h',
-              type: 'bar'
-          }
-      ];
-
+      }
+      
+      // set layout for bar chart
       var barLayout = {
-          'title': 'Top 10 Bacteria Cultures for OTU ID: ' + name
-      };
+          title: "Top 10 Bacteria Cultures Found",
+          margin: {t:75, l:75}
+      }
 
-      Plotly.newPlot("bar", barData, barLayout);
+      // draw bar chart 
+      Plotly.newPlot("bar", [barData], barLayout);
   });
 };
 
-function showBubble(name) {
-  d3.json("./static/js/samples.json").then(data => {
-      var sample = data.samples.filter(obj => obj.id == name)[0];
+function DrawBubblechart(sampleID) {
+  d3.json("samples.json").then((data) => {
 
-      var bubbleData = [
-          {
-              x: sample.otu_ids,
-              y: sample.sample_values,
-              text: sample.otu_labels,
-              mode: "markers",
-              marker: {
-                  size: sample.sample_values,
-                  color: sample.otu_ids,
-                  colorscale: "Earth"
-              }
-          }
-      ];
+      // create variables for the bubble chart data
+      var samples = data.samples;
+      var resultArray = samples.filter(s => s.id == sampleID);
+      var result = resultArray[0];
 
+      var otu_ids = result.otu_ids;
+      var otu_labels = result.otu_labels;
+      var sample_values = result.sample_values;
+
+      // assign data to bubble chart
+      var bubbleData = {
+          x: otu_ids,
+          y: sample_values,
+          mode: "markers",
+          marker: {
+              size: sample_values,
+              color: otu_ids
+          },
+          text: otu_labels
+      }
+
+      // set layout for bubble chart
       var bubbleLayout = {
-          // "title": "Bubble Chart of Bacteria Culture Sample in OTU ID: " + name,
-          "margin": { t: 0 },
-          'hovermode': 'closest',
-          'xaxis': {title: 'OTU ID ' + name},
-          'yaxis': {title: "Sample Values"}
-      };
+          xaxis:{title: "OTU ID"},
+      }
 
-      Plotly.newPlot("bubble", bubbleData, bubbleLayout);
-  })
+      // draw the bubble chart
+      Plotly.newPlot("bubble", [bubbleData], bubbleLayout);
+  
+
+  });
+
 };
 
-function showGauge(name) {
-  d3.json("./static/js/samples.json").then(data => {
-      
-      var intname = parseInt(name);
-      var sample = data.metadata.filter(obj => obj.id === intname)[0];
-      console.log(sample.wfreq);
+function Demographics(sampleID) {
 
-      var data = [
-          {
-            type: "indicator",
-            mode: "gauge+number+delta",
-            value: sample.wfreq,
-            title: { text: "<b>Belly Bottom Washing Frequency</b><br><span style='font-size:20;'>Scrubs per Week</span><br>", font: { size: 24 }},
-            delta: { reference: 5, increasing: { color: "RebeccaPurple" } },
-            
-            gauge: {
-              
-              axis: { range: [null, 9], tickwidth: 1, tickcolor: "darkblue" },
-              bar: { color: "darkblue" },
-              bgcolor: "white",
-              borderwidth: 2,
-              bordercolor: "gray",
-              steps: [
-                { range: [0, 1], color: "lightblue" },
-                { range: [1, 2], color: "royalblue" },
-                { range: [2, 3], color: "lightgreen" },
-                { range: [3, 4], color: "green" },
-                { range: [4, 5], color: "lightgreen" },
-                { range: [5, 6], color: "green" },
-                { range: [6, 7], color: "lightpink" },
-                { range: [7, 8], color: "pink" },
-                { range: [8, 9], color: "yellow" },
-              ],
-              threshold: {
-                line: { color: "red", width: 4 },
-                thickness: 0.75,
-                value: 5
-              }
-            }
-          }
-        ];
-        
-        var layout = {
-          width:  400,
-          height: 400,
-          margin: { t: 25, r: 25, l: 25, b: 25 },
-          paper_bgcolor: "white",
-          font: { color: "darkblue", family: "Arial" }
-        };
-        
-        Plotly.newPlot('gauge', data, layout);
-      })};
+  d3.json("samples.json").then((data) => {
+
+      // create variables to hold the data 
+      var metadata = data.metadata;
+      var resultArray = metadata.filter(md => md.id == sampleID);
+      var result = resultArray[0];
+
+      // select the demographics panel area
+      var panel = d3.select("#sample-metadata");
+
+      // clear the previous data
+      panel.html("");
+
+      // get the data and find the sample keys and values
+      Object.entries(result).forEach(([key, value]) => {
+
+          panel.append("p").text(`${key}: ${value}`);
+      });
+  });   
+};
+
+// draw new graphs based on new sampleID chosen
+function optionChanged(newSampleID) {
+  console.log(`Option changed to ${newSampleID}`);
+
+  DrawBargraph(newSampleID);
+  DrawBubblechart(newSampleID);
+  Demographics(newSampleID);
+};
+
+// function to draw initial graphs
+function init() {
+  
+  // select the dropdown menu
+  var selection = d3.select("#selDataset");
+
+  //get the data
+  d3.json("samples.json").then(function(data){
+      
+      // print the data to the console
+      console.log(data);
+
+      // populate the dropdown menu with ids
+      data.names.forEach(ID => selection
+          .append("option")
+          .text(ID)
+          .property("value", ID) 
+      );
+
+      // Get first sample ID
+      var sampleID = data.names[0];
+      console.log("Starting sample", sampleID);
+  
+      // Draw graphs
+      DrawBargraph(sampleID);
+      DrawBubblechart(sampleID);
+      Demographics(sampleID);
+  });
+};
 
 init();
