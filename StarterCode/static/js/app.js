@@ -69,13 +69,12 @@ function updatePage() {
       name: "bubble",
       mode: "markers",
       marker: {size: bub_sample_values[subjectIndex],
-               color: "grey"
+               color: "purple"
               }
           };
     // Gauge Graph
     var trace3 = {
-      domain: { x: [0,1], y: [0,1] },
-      value: 9,
+      domain: {x: [0, 1], y: [0, 1] },
       title: {text: "Belly Button Washing Frequency"},
       type: "indicator",
       mode: "gauge+number"
