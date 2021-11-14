@@ -1,31 +1,23 @@
 function init() {
   d3.json('samples.json').then(data => {
     console.log(data);
-    let id = "940"
+    let id = "940";
     
     // Filter samples to element 940
     let filtered = data.samples.filter(sample => sample.id === id);
     let y = filtered.map(otus => otus.otu_ids);
     console.log("Mapped otu ids for ID #940: ", y[0].slice(0, 10));
-        
-    // Get data for bubble graph
-    let sample = data.samples.filter(sample => sample.id === id);
-    let x_bubble = sample[0].otu_ids;
-    let y_bubble = sample[0].sample_values;
     
-
-    // Get data for bar graph
-    let x_bar = sample[0].sample_values.slice(0, 10);
-    console.log(x_bar);
-    let y_bar = y[0].slice(0,10).map(String);
-    y_bar = y_bar.map(el => "OTU " + el)
-    console.log(y_bar);
-
-    // Data for dropdown list
+    // Create dropdown list
     let dropdown = data.names;
     var demographic = data.metadata[0];
     console.log(d3.keys(demographic));
     
+    // Get data for bar graph
+    let x_bar = sample[0].sample_values.slice(0, 10);
+    let y_bar = y[0].slice(0,10).map(String);
+    y_bar = y_bar.map(el => "OTU " + el)
+        
     // Create horizontal bar graph
     var trace1 = {
       x: x_bar.reverse(),
@@ -35,6 +27,11 @@ function init() {
     };
     var plotdata = [trace1];
     Plotly.newPlot("bar", plotdata);
+
+    // Get data for bubble graph
+    let sample = data.samples.filter(sample => sample.id === id);
+    let x_bubble = sample[0].otu_ids;
+    let y_bubble = sample[0].sample_values;
     
     // Create bubble plot
     var trace2 = {
@@ -44,7 +41,7 @@ function init() {
       marker: {
         size: sample[0].sample_values,
         color: sample[0].sample_values,
-        colorscale: [[0, 'rgb(0, 255, 0)'], [1, 'rgb(255, 0, 255)']]
+        colorscale: [[0, 'rgb(140, 150, 160)'], [1, 'rgb(50, 0, 80)']]
       },
       text: sample[0].otu_labels
     };    
@@ -91,40 +88,34 @@ function init() {
       console.log(y_bar);
       let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
       console.log(demo[0].wfreq);
-          // update bubble plot with new id info
-          Plotly.restyle('bubble', 'x', [x_bubble2]);
-          Plotly.restyle('bubble', 'y', [y_bubble2]);
-          // update bar plot with new id info
-          Plotly.restyle('bar', 'x', [x_bar.reverse()]);
-          Plotly.restyle('bar', 'y', [y_bar.reverse()]);
-          // update guage plot with new id info
-          Plotly.restyle('gauge', 'value', [demo[0].wfreq]);
-          
+      
+      // update bar plot with new id info
+      Plotly.restyle('bar', 'x', [x_bar.reverse()]);
+      Plotly.restyle('bar', 'y', [y_bar.reverse()]);
+      
+      // update bubble plot with new id info
+      Plotly.restyle('bubble', 'x', [x_bubble2]);
+      Plotly.restyle('bubble', 'y', [y_bubble2]);
 
-          
-          // update demographic info card with new id info
-          d3.select("#sample-metadata").selectAll("p").remove();
-          const meta = d3.select("#sample-metadata");
-          
-          Object.keys(demo[0]).forEach((k) => {
-              // meta.append("p").attr("class", "card-text").text(d3.keys(elem));
-              console.log(`${k}: ${demo[0][k]}`);
-              // d3.select("#sample-metadata").append("p").attr("class", "card-text").text(`${k}: ${demo[k]}`);
-              // d3.select("#sample-metadata").append("p").attr("class", "card-text").text(k);
-          });
-
-          for (const [k,v] of Object.entries(demo[0])) {
-              console.log(`${k}: ${v}`);
-              d3.select("#sample-metadata").append("p").attr("class", "card-text").text(`${k}: ${v}`);
-          };
-          
-          
-      }
-
-      menu.on("change", optionChanged);
-  })
-}
-
-
+      // update guage plot with new id info
+      Plotly.restyle('gauge', 'value', [demo[0].wfreq]);
+      
+      // update demographic info card with new id info
+      d3.select("#sample-metadata").selectAll("p").remove();
+      const meta = d3.select("#sample-metadata");
+      
+      Object.keys(demo[0]).forEach((k) => {
+        console.log(`${k}: ${demo[0][k]}`);
+      });
+      
+      for (const [k,v] of Object.entries(demo[0])) {
+        console.log(`${k}: ${v}`);
+        d3.select("#sample-metadata").append("p").attr("class", "card-text").text(`${k}: ${v}`);
+      };
+    };
+    
+    menu.on("change", optionChanged);
+  });
+};
 
 init();
