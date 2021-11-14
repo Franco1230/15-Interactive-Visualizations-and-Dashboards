@@ -37,7 +37,7 @@ function init() {
         color: "purple",
         line: {
           color: "black",
-          width: 5
+          width: 2
         }
       },
       orientation: "h"
@@ -55,7 +55,7 @@ function init() {
         color: sample[0].sample_values,
         colorscale: [[0, "rgb(90, 100, 110)"], [1, "rgb(40, 0, 50)"]]
       },
-      text: sample[0].otu_labels
+      // text: sample[0].otu_labels
     };
     var bubbleData = [trace2];
     Plotly.newPlot("bubble", bubbleData);
