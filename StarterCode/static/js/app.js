@@ -72,10 +72,11 @@ function updatePage() {
                color: "purple"
               }
           };
+    
     // Gauge Graph
     var trace3 = {
       domain: {x: [0, 1], y: [0, 1]},
-      value: demodata.wfreq,
+      value: metadata.wfreq,
       title: {text: "Belly Button Washing Frequency"},
       type: "indicator",
       mode: "gauge+number"
