@@ -1,5 +1,3 @@
-// this was the test.js which I renamed back to app.js.  The original app.js was renamed to test.js for ease instead of copy pasting and deleting both files
-// initialize webpage with id 940 and load all plots
 function init() {
     d3.json('samples.json').then(data => {
         console.log(data);
