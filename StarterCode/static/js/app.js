@@ -33,7 +33,13 @@ function init() {
       x: x_bar.reverse(),
       y: y_bar.reverse(),
       type: "bar",
-      marker: {color: "rgb(30, 0, 50)"},
+      marker: {
+        color: "rgb(40, 0, 50)",
+        line: {
+          color: "rgb(40, 0, 80)",
+          width: 1
+        }
+      },
       orientation: "h"
     };
     var barData = [trace1];
