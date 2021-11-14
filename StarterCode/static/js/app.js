@@ -53,7 +53,7 @@ function init() {
       marker: {
         size: sample[0].sample_values,
         color: sample[0].sample_values,
-        colorscale: [[0, "rgb(90, 100, 110)"], [1, "rgb(40, 0, 50)"]]
+        colorscale: [[0, "rgb(90, 100, 110)"], [1, "rgb(50, 0, 60)"]]
       },
       // text: sample[0].otu_labels
     };
