@@ -21,7 +21,7 @@ function init() {
     y_bar = y_bar.map(el => "OTU " + el)
     console.log(y_bar);
 
-    // Fill in the dropdown list
+    // Data for dropdown list
     let dropdown = data.names;
     var demographic = data.metadata[0];
     console.log(d3.keys(demographic));
@@ -47,8 +47,7 @@ function init() {
         colorscale: [[0, 'rgb(0, 0, 0)'], [1, 'rgb(255, 0, 255)']]
       },
       text: sample[0].otu_labels
-    };
-    
+    };    
     var plotdata2 = [trace2];
     Plotly.newPlot("bubble", plotdata2);
     
@@ -59,40 +58,39 @@ function init() {
       title: {text: "Belly Button Washing Frequency"},
       type: "indicator",
       gauge: {
-        bar: {color: "charcoal"}
+        bar: {color: "charcoal-grey"}
       },
       mode: "gauge+number"
-    }];
-
-      var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
-
-      Plotly.newPlot('gauge', gdata, layout);
-      // build dropdown list
-      const menu = d3.select("#selDataset");
-  
-      dropdown.forEach(item => {
-          menu.append("option").attr("value", item).text(item);
-      })
-      // build metadata card
-      const meta = d3.select("#sample-metadata");
-      Object.keys(demographic).forEach((k) => {
-        console.log(k, demographic[k]);
-        meta.append("p").attr("class", "card-text").text(`${k}: ${demographic[k]}`);
-      });
-
-      function optionChanged() {
-          let id = d3.event.target.value; //value of dropdown list
-          console.log(id);
-          // console.log(data);
-          const filtered = data.samples.filter(sample => sample.id === id);
-          let x_bubble2 = filtered[0].otu_ids;
-          let y_bubble2 = filtered[0].sample_values;
-          let x_bar = filtered[0].sample_values.slice(0,10);
-          let y_bar = filtered[0].otu_ids.slice(0,10);
-          y_bar = y_bar.map(el => "OTU "+el)
-          console.log(y_bar);
-          let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
-          console.log(demo[0].wfreq);
+    }];    
+    var layout = { width: 600, height: 500, margin: {t: 0, b: 0}};
+    Plotly.newPlot('gauge', gdata, layout);
+    
+    // Create dropdown list
+    const menu = d3.select("#selDataset");
+    dropdown.forEach(item => {
+      menu.append("option").attr("value", item).text(item);
+    });
+    
+    // Create "Demographic Info" card
+    const meta = d3.select("#sample-metadata");
+    Object.keys(demographic).forEach((k) => {
+      console.log(k, demographic[k]);
+      meta.append("p").attr("class", "card-text").text(`${k}: ${demographic[k]}`);
+    });
+    
+    function optionChanged() {
+      let id = d3.event.target.value;
+      console.log(id);
+      
+      const filtered = data.samples.filter(sample => sample.id === id);
+      let x_bubble2 = filtered[0].otu_ids;
+      let y_bubble2 = filtered[0].sample_values;
+      let x_bar = filtered[0].sample_values.slice(0, 10);
+      let y_bar = filtered[0].otu_ids.slice(0, 10);
+      y_bar = y_bar.map(el => "OTU " + el)
+      console.log(y_bar);
+      let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
+      console.log(demo[0].wfreq);
           // update bubble plot with new id info
           Plotly.restyle('bubble', 'x', [x_bubble2]);
           Plotly.restyle('bubble', 'y', [y_bubble2]);
