@@ -69,7 +69,7 @@ function updatePage() {
       name: "bubble",
       mode: "markers",
       marker: {size: bub_sample_values[subjectIndex],
-               color: bub_otu_ids[subjectIndex]
+               color: "grey"
               }
           };
     // Gauge Graph
