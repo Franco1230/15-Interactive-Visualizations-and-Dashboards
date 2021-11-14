@@ -44,7 +44,7 @@ function init() {
       marker: {
         size: sample[0].sample_values,
         color: sample[0].sample_values,
-        colorscale: [[0, 'rgb(0, 0, 0)'], [1, 'rgb(255, 0, 255)']]
+        colorscale: [[0, 'rgb(0, 255, 0)'], [1, 'rgb(255, 0, 255)']]
       },
       text: sample[0].otu_labels
     };    
@@ -58,7 +58,7 @@ function init() {
       title: {text: "Belly Button Washing Frequency"},
       type: "indicator",
       gauge: {
-        bar: {color: "charcoal-grey"}
+        bar: {color: "grey"}
       },
       mode: "gauge+number"
     }];    
