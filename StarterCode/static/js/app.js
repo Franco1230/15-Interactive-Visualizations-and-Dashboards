@@ -37,7 +37,7 @@ function init() {
         color: "purple",
         line: {
           color: "black",
-          width: 1
+          width: 2
         }
       },
       orientation: "h"
