@@ -36,7 +36,7 @@ function init() {
       marker: {
         color: "purple",
         line: {
-          color: "rgb(40, 0, 50)",
+          color: "black",
           width: 1
         }
       },
@@ -68,7 +68,7 @@ function init() {
       type: "indicator",
       gauge: {bar: {color: "purple"}},
       mode: "gauge+number"}];
-      var layout = {width: 458, height: 455, margin: {t: 0, b: 0}};
+      var layout = {width: 458, height: 454, margin: {t: 0, b: 0}};
       Plotly.newPlot("gauge", gaugeData, layout);
       
       // Create dropdown list
