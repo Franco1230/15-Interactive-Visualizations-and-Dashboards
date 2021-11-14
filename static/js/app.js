@@ -41,7 +41,7 @@ function init() {
             marker: {
                 size: sample[0].sample_values,
                 color: sample[0].sample_values,
-                colorscale: [[0, 'rgb(0, 0, 0)'], [1, 'rgb(0, 255, 255)']]
+                colorscale: [[0, 'rgb(0, 0, 0)'], [1, 'rgb(0, 0, 255)']]
             },
             text: sample[0].otu_labels
         };
@@ -75,18 +75,16 @@ function init() {
         })
         // build metadata card
         // got solution here: 
-        // https://stackoverflow.com/questions/37673454/javascript-iterate-key-value-from-json
         const meta = d3.select("#sample-metadata");
         Object.keys(demographic).forEach((k) => {
-            // meta.append("p").attr("class", "card-text").text(d3.keys(elem));
             console.log(k, demographic[k]);
             meta.append("p").attr("class", "card-text").text(`${k}: ${demographic[k]}`);
         });
 
         function optionChanged() {
-            let id = d3.event.target.value; //value of dropdown list
+            let id = d3.event.target.value;
+            //value of dropdown list
             console.log(id);
-            // console.log(data);
             const filtered = data.samples.filter(sample => sample.id === id);
             let x_bubble2 = filtered[0].otu_ids;
             let y_bubble2 = filtered[0].sample_values;
@@ -96,12 +94,15 @@ function init() {
             console.log(y_bar);
             let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
             console.log(demo[0].wfreq);
+            
             // update bubble plot with new id info
             Plotly.restyle('bubble', 'x', [x_bubble2]);
             Plotly.restyle('bubble', 'y', [y_bubble2]);
+            
             // update bar plot with new id info
             Plotly.restyle('bar', 'x', [x_bar.reverse()]);
             Plotly.restyle('bar', 'y', [y_bar.reverse()]);
+            
             // update guage plot with new id info
             Plotly.restyle('gauge', 'value', [demo[0].wfreq]);
             
@@ -112,10 +113,7 @@ function init() {
             const meta = d3.select("#sample-metadata");
             
             Object.keys(demo[0]).forEach((k) => {
-                // meta.append("p").attr("class", "card-text").text(d3.keys(elem));
                 console.log(`${k}: ${demo[0][k]}`);
-                // d3.select("#sample-metadata").append("p").attr("class", "card-text").text(`${k}: ${demo[k]}`);
-                // d3.select("#sample-metadata").append("p").attr("class", "card-text").text(k);
             });
 
             for (const [k,v] of Object.entries(demo[0])) {
