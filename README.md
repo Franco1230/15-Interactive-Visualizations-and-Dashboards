@@ -3,8 +3,8 @@ Homework #15
 
 This project required parsing data from a json file and building a dashboard for it.
 
-You can run the dashboard here [GitHub pages](https://g8r1fl.github.io/plotly-challenge/)
-The repository is here: [GitHub Plotly Rep](https://github.com/g8r1fl/plotly-challenge)
+Please [click here](https://franco1230.github.io/15-Interactive-Visualizations-and-Dashboards/) to run the [Dashboard](https://franco1230.github.io/15-Interactive-Visualizations-and-Dashboards/)
+
 
 To run the dashboard please select a patient ID from the dropdown list.
 
