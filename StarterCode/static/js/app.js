@@ -1,9 +1,9 @@
 function init() {
-  d3.json('samples.json').then(data => {
+  d3.json("samples.json").then(data => {
     console.log(data);
-    let id = "940"
+    let id = "940";
     
-    // filter to get element 940
+    // Filter to get element 940
     let filtered = data.samples.filter(sample => sample.id === id);
     let y = filtered.map(otus => otus.otu_ids);
     console.log(filtered);
@@ -36,34 +36,34 @@ function init() {
       color: "darkblue",
       orientation: "h"
     };
-    var plotdata = [trace1];
-    Plotly.newPlot("bar", plotdata);
+    var barData = [trace1];
+    Plotly.newPlot("bar", barData);
     
     // Create bubble plot
     var trace2 = {
       x: x_bubble,
       y: y_bubble,
-      mode: 'markers',
+      mode: "markers",
       marker: {
         size: sample[0].sample_values,
         color: sample[0].sample_values,
-        colorscale: [[0, 'rgb(140, 150, 160)'], [1, 'rgb(50, 0, 80)']]
+        colorscale: [[0, "rgb(140, 150, 160)"], [1, "rgb(50, 0, 80)"]]
       },
       text: sample[0].otu_labels
     };
-    var plotdata2 = [trace2];
-    Plotly.newPlot("bubble", plotdata2);
+    var bubbleData = [trace2];
+    Plotly.newPlot("bubble", bubbleData);
     
     // Create gauge plot
     var gdata = [{
-      domain: { x: [0, 1], y: [0, 1]},
+      domain: {x: [0, 1], y: [0, 1]},
       value: demographic.wfreq,
-      title: { text: "Belly Button Washing Frequency" },
+      title: {text: "Belly Button Washing Frequency"},
       type: "indicator",
       gauge: {bar: {color: "purple"}},
       mode: "gauge+number"}];
       var layout = {width: 600, height: 500, margin: {t: 0, b: 0}};
-      Plotly.newPlot('gauge', gdata, layout);
+      Plotly.newPlot("gauge", gdata, layout);
       
       // Create dropdown list
       const menu = d3.select("#selDataset");
@@ -81,27 +81,29 @@ function init() {
       function optionChanged() {
         let id = d3.event.target.value;
         console.log(id);
+        
         const filtered = data.samples.filter(sample => sample.id === id);
         let x_bar2 = filtered[0].sample_values.slice(0,10);
         let y_bar2 = filtered[0].otu_ids.slice(0,10);
+        y_bar2 = y_bar2.map(el => "OTU " + el)
+        console.log(y_bar);
 
         let x_bubble2 = filtered[0].otu_ids;
         let y_bubble2 = filtered[0].sample_values;
-        y_bar2 = y_bar2.map(el => "OTU "+el)
-        console.log(y_bar);
+        
         let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
         console.log(demo[0].wfreq);
 
         // Update bar plot with new selected info
-        Plotly.restyle('bar', 'x', [x_bar2.reverse()]);
-        Plotly.restyle('bar', 'y', [y_bar2.reverse()]);
+        Plotly.restyle("bar", "x", [x_bar2.reverse()]);
+        Plotly.restyle("bar", "y", [y_bar2.reverse()]);
 
         // Update bubble plot with new selected info
-        Plotly.restyle('bubble', 'x', [x_bubble2]);
-        Plotly.restyle('bubble', 'y', [y_bubble2]);
+        Plotly.restyle("bubble", "x", [x_bubble2]);
+        Plotly.restyle("bubble", "y", [y_bubble2]);
         
         // Update guage plot with new selected info
-        Plotly.restyle('gauge', 'value', [demo[0].wfreq]);
+        Plotly.restyle("gauge", "value", [demo[0].wfreq]);
         
         // Update demographic info card with new selected info
         d3.select("#sample-metadata").selectAll("p").remove();
