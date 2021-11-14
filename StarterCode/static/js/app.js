@@ -33,7 +33,7 @@ function init() {
       x: x_bar.reverse(),
       y: y_bar.reverse(),
       type: "bar",
-      color: "darkblue",
+      marker: {color: "rgb(30, 0, 50)"},
       orientation: "h"
     };
     var barData = [trace1];
@@ -81,7 +81,7 @@ function init() {
       function optionChanged() {
         let id = d3.event.target.value;
         console.log(id);
-        
+
         const filtered = data.samples.filter(sample => sample.id === id);
         let x_bar2 = filtered[0].sample_values.slice(0,10);
         let y_bar2 = filtered[0].otu_ids.slice(0,10);
