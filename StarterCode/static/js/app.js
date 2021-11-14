@@ -34,7 +34,7 @@ function init() {
       y: y_bar.reverse(),
       type: "bar",
       marker: {
-        color: "rgb(50, 0, 80)",
+        color: "purple",
         line: {
           color: "rgb(40, 0, 50)",
           width: 1
