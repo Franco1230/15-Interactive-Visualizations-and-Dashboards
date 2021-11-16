@@ -117,10 +117,10 @@ function init() {
         console.log(`${k}: ${demo[0][k]}`);
       });
 
-      for (const [k, v] of Object.entries(demo[0])) {
-        console.log(`${k}: ${v}`);
-        d3.select("#sample-metadata").append("p").attr("class", "card-text").text(`${k}: ${v}`);
-      };
+      // for (const [k, v] of Object.entries(demo[0])) {
+      //   console.log(`${k}: ${v}`);
+      //   d3.select("#sample-metadata").append("p").attr("class", "card-text").text(`${k}: ${v}`);
+      // };
     };
     
     menu.on("change", optionChanged);
