@@ -75,7 +75,7 @@ function init() {
       menu.append("option").attr("value", item).text(item);
     });
       
-    // Create metadata card
+    // Create demographic info card
     const meta = d3.select("#sample-metadata");
     Object.keys(demographic).forEach((k) => {
       console.log(k, demographic[k]);
