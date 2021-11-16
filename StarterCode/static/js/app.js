@@ -1,9 +1,10 @@
+// Create function for Dashboard
 function init() {
   d3.json("samples.json").then(data => {
     console.log(data);
     let id = "940";
     
-    // Filter to get element 940
+    // Filter to get element 940 as sample
     let filtered = data.samples.filter(sample => sample.id === id);
     let y = filtered.map(otus => otus.otu_ids);
     console.log(filtered);
@@ -12,9 +13,9 @@ function init() {
     
     // Data for bar plot
     let sample = data.samples.filter(sample => sample.id === id);
-    let x_bar = sample[0].sample_values.slice(0,10);
+    let x_bar = sample[0].sample_values.slice(0, 10);
     console.log(x_bar);
-    let y_bar = y[0].slice(0,10).map(String);
+    let y_bar = y[0].slice(0, 10).map(String);
     y_bar = y_bar.map(el => "OTU " + el);
     console.log(y_bar);
         
@@ -23,7 +24,7 @@ function init() {
     let y_bubble = sample[0].sample_values;
     
     // Data for dropdown list
-    let droplist = data.names;
+    let dropdownList = data.names;
     var demographic = data.metadata[0];
     console.log(d3.keys(demographic));
     
@@ -71,7 +72,7 @@ function init() {
       
     // Create dropdown list
     const menu = d3.select("#selDataset");
-    droplist.forEach(item => {
+    dropdownList.forEach(item => {
       menu.append("option").attr("value", item).text(item);
     });
       
@@ -125,8 +126,10 @@ function init() {
       };
     };
     
+    // Activate dropdown list
     menu.on("change", optionChanged);
   });
 };
-  
+
+// Activate the function for Dashboard
 init();
