@@ -89,15 +89,15 @@ function init() {
       console.log(id);
 
       // Update bar plot data
-      const filteredData2 = data.samples.filter(sample => sample.id === id);
-      let x_bar2 = filteredData2[0].sample_values.slice(0,10);
-      let y_bar2 = filteredData2[0].otu_ids.slice(0,10);
+      const filteredData = data.samples.filter(sample => sample.id === id);
+      let x_bar2 = filteredData[0].sample_values.slice(0,10);
+      let y_bar2 = filteredData[0].otu_ids.slice(0,10);
       y_bar2 = y_bar2.map(el => "OTU " + el)
       console.log(y_bar);
 
       // Update bubble plot data
-      let x_bubble2 = filteredData2[0].otu_ids;
-      let y_bubble2 = filteredData2[0].sample_values;
+      let x_bubble2 = filteredData[0].otu_ids;
+      let y_bubble2 = filteredData[0].sample_values;
       
       // Update metadata card data
       let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
