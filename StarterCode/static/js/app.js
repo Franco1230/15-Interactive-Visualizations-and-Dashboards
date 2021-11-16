@@ -8,9 +8,7 @@ function init() {
     let y = filtered.map(otus => otus.otu_ids);
     console.log(filtered);
     console.log(filtered[0].otu_ids);
-    console.log("Mapped otu ids for ID #940: ", y[0].slice(0, 10));
-
-    
+    console.log("Mapped otu ids for ID #940: ", y[0].slice(0, 10));    
     
     // Data for bar plot
     let sample = data.samples.filter(sample => sample.id === id);
