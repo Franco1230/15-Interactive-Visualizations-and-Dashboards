@@ -16,7 +16,7 @@ function init() {
     let x_bar = sample[0].sample_values.slice(0,10);
     console.log(x_bar);
     let y_bar = y[0].slice(0,10).map(String);
-    y_bar = y_bar.map(el => "OTU "+el);
+    y_bar = y_bar.map(el => "OTU " + el);
     console.log(y_bar);
         
     // Data for bubble plot
@@ -55,7 +55,6 @@ function init() {
         color: sample[0].sample_values,
         colorscale: [[0, "rgb(90, 100, 110)"], [1, "rgb(50, 0, 60)"]]
       },
-      // text: sample[0].otu_labels
     };
     var bubbleData = [trace2];
     Plotly.newPlot("bubble", bubbleData);
