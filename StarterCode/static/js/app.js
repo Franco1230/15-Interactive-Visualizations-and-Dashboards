@@ -5,10 +5,10 @@ function init() {
     let id = "940";
     
     // Filter to get element 940 as sample
-    let filtered = data.samples.filter(sample => sample.id === id);
-    let y = filtered.map(otus => otus.otu_ids);
-    console.log(filtered);
-    console.log(filtered[0].otu_ids);
+    let filteredData = data.samples.filter(sample => sample.id === id);
+    let y = filteredData.map(otus => otus.otu_ids);
+    console.log(filteredData);
+    console.log(filteredData[0].otu_ids);
     console.log("Mapped otu ids for ID #940: ", y[0].slice(0, 10));    
     
     // Data for bar plot
@@ -89,15 +89,15 @@ function init() {
       console.log(id);
 
       // Update bar plot data
-      const filtered = data.samples.filter(sample => sample.id === id);
-      let x_bar2 = filtered[0].sample_values.slice(0,10);
-      let y_bar2 = filtered[0].otu_ids.slice(0,10);
+      const filteredData2 = data.samples.filter(sample => sample.id === id);
+      let x_bar2 = filteredData2[0].sample_values.slice(0,10);
+      let y_bar2 = filteredData2[0].otu_ids.slice(0,10);
       y_bar2 = y_bar2.map(el => "OTU " + el)
       console.log(y_bar);
 
       // Update bubble plot data
-      let x_bubble2 = filtered[0].otu_ids;
-      let y_bubble2 = filtered[0].sample_values;
+      let x_bubble2 = filteredData2[0].otu_ids;
+      let y_bubble2 = filteredData2[0].sample_values;
       
       // Update metadata card data
       let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
