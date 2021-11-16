@@ -53,7 +53,7 @@ function init() {
       marker: {
         size: sample[0].sample_values,
         color: sample[0].sample_values,
-        colorscale: [[0, "blue"], [1, "rgb(50, 0, 60)"]]
+        colorscale: [[0, "grey"], [1, "rgb(50, 0, 60)"]]
       },
     };
     var bubbleData = [trace2];
