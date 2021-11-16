@@ -58,7 +58,20 @@ function init() {
     };
     var bubbleData = [trace2];
     Plotly.newPlot("bubble", bubbleData);
+
+    // Create dropdown list
+    const menu = d3.select("#selDataset");
+    dropdownList.forEach(item => {
+      menu.append("option").attr("value", item).text(item);
+    });      
     
+    // Create demographic info card
+    const meta = d3.select("#sample-metadata");
+    Object.keys(demographic).forEach((k) => {
+      console.log(k, demographic[k]);
+      meta.append("p").attr("class", "card-text").text(`${k}: ${demographic[k]}`);
+    });
+
     // Create gauge plot
     var gaugeData = [{
       domain: {x: [0, 1], y: [0, 1]},
@@ -69,19 +82,6 @@ function init() {
       mode: "gauge+number"}];
     var layout = {width: 458, height: 450, margin: {t: 0, b: 0}};
     Plotly.newPlot("gauge", gaugeData, layout);
-      
-    // Create dropdown list
-    const menu = d3.select("#selDataset");
-    dropdownList.forEach(item => {
-      menu.append("option").attr("value", item).text(item);
-    });
-      
-    // Create demographic info card
-    const meta = d3.select("#sample-metadata");
-    Object.keys(demographic).forEach((k) => {
-      console.log(k, demographic[k]);
-      meta.append("p").attr("class", "card-text").text(`${k}: ${demographic[k]}`);
-    });
     
     // Change patient ID
     function optionChanged() {
@@ -99,22 +99,22 @@ function init() {
       let x_bubble2 = filteredData[0].otu_ids;
       let y_bubble2 = filteredData[0].sample_values;
       
-      // Update metadata card data
+      // Update demographic info card data
       let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
       console.log(demo[0].wfreq);
 
-      // Update bar plot with new selected info
+      // Update bar plot with new data
       Plotly.restyle("bar", "x", [x_bar2.reverse()]);
       Plotly.restyle("bar", "y", [y_bar2.reverse()]);
 
-      // Update bubble plot with new selected info
+      // Update bubble plot with new data
       Plotly.restyle("bubble", "x", [x_bubble2]);
       Plotly.restyle("bubble", "y", [y_bubble2]);
       
-      // Update guage plot with new selected info
+      // Update guage plot with new data
       Plotly.restyle("gauge", "value", [demo[0].wfreq]);
       
-      // Update demographic info card with new selected info
+      // Update demographic info card with new data
       d3.select("#sample-metadata").selectAll("p").remove();
       const meta = d3.select("#sample-metadata");
       Object.keys(demo[0]).forEach((k) => {
