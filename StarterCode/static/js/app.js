@@ -10,9 +10,10 @@ function init() {
     console.log(filtered[0].otu_ids);
     console.log("Mapped otu ids for ID #940: ", y[0].slice(0, 10));
 
-    let sample = data.samples.filter(sample => sample.id === id);
+    
     
     // Data for bar plot
+    let sample = data.samples.filter(sample => sample.id === id);
     let x_bar = sample[0].sample_values.slice(0,10);
     console.log(x_bar);
     let y_bar = y[0].slice(0,10).map(String);
@@ -82,20 +83,24 @@ function init() {
       console.log(k, demographic[k]);
       meta.append("p").attr("class", "card-text").text(`${k}: ${demographic[k]}`);
     });
-      
+    
+    // Change patient ID
     function optionChanged() {
       let id = d3.event.target.value;
       console.log(id);
 
+      // Update bar plot data
       const filtered = data.samples.filter(sample => sample.id === id);
       let x_bar2 = filtered[0].sample_values.slice(0,10);
       let y_bar2 = filtered[0].otu_ids.slice(0,10);
       y_bar2 = y_bar2.map(el => "OTU " + el)
       console.log(y_bar);
 
+      // Update bubble plot data
       let x_bubble2 = filtered[0].otu_ids;
       let y_bubble2 = filtered[0].sample_values;
       
+      // Update metadata card data
       let demo = data.metadata.filter(meta => meta.id === parseInt(id));    
       console.log(demo[0].wfreq);
 
@@ -115,12 +120,11 @@ function init() {
       const meta = d3.select("#sample-metadata");
       Object.keys(demo[0]).forEach((k) => {
         console.log(`${k}: ${demo[0][k]}`);
-      });
-
-      // for (const [k, v] of Object.entries(demo[0])) {
-      //   console.log(`${k}: ${v}`);
-      //   d3.select("#sample-metadata").append("p").attr("class", "card-text").text(`${k}: ${v}`);
-      // };
+      });      
+      for (const [k, v] of Object.entries(demo[0])) {
+        console.log(`${k}: ${v}`);
+        d3.select("#sample-metadata").append("p").attr("class", "card-text").text(`${k}: ${v}`);
+      };
     };
     
     menu.on("change", optionChanged);
