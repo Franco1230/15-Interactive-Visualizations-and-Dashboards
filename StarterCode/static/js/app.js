@@ -2,9 +2,9 @@
 function init() {
   d3.json("samples.json").then(data => {
     console.log(data);
-    let id = "940";
     
     // Filter to get element 940 as sample
+    let id = "940";
     let filteredData = data.samples.filter(sample => sample.id === id);
     let y = filteredData.map(otus => otus.otu_ids);
     console.log(filteredData);
